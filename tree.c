@@ -10,6 +10,8 @@
 //   "100644 hello.txt\0" followed by 32 raw bytes of SHA-256
 
 #include "tree.h"
+#include "pes.h"
+#include "index.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -128,10 +130,35 @@ int tree_serialize(const Tree *tree, void **data_out, size_t *len_out) {
 //   - tree_serialize  : convert your populated Tree struct into a binary buffer
 //   - object_write    : save that binary buffer to the store as OBJ_TREE
 //
-// Returns 0 on success, -1 on error.
-int tree_from_index(ObjectID *id_out) {
-    // TODO: Implement recursive tree building
-    // (See Lab Appendix for logical steps)
-    (void)id_out;
-    return -1;
+// Returns 0 on success, -1 on error
+int tree_from_index(ObjectID *tree_id_out) {
+    Index index;
+
+    if (index_load(&index) != 0) return -1;
+
+    // Build tree as a string buffer (SAFE METHOD)
+    char buffer[4096];
+    int offset = 0;
+
+    for (int i = 0; i < index.count; i++) {
+        IndexEntry *ie = &index.entries[i];
+
+        char hash_hex[HASH_HEX_SIZE + 1];
+        hash_to_hex(&ie->hash, hash_hex);
+
+        // format: mode hash name
+        offset += snprintf(buffer + offset,
+                           sizeof(buffer) - offset,
+                           "%o %s %s\n",
+                           ie->mode,
+                           hash_hex,
+                           ie->path);
+    }
+
+    // Write as tree object
+    if (object_write(OBJ_TREE, buffer, offset, tree_id_out) != 0) {
+        return -1;
+    }
+
+    return 0;
 }
