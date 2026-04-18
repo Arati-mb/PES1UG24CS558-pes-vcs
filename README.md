@@ -29,8 +29,8 @@ Objects are stored by:
 - Adding header (`type size\0`)
 - Computing SHA-256 hash
 - Storing in `.pes/objects/XX/YY...` (sharded format)
-- ![Screenshot 1A](screenshots/Screenshot_1A.jpeg)
-- ![Screenshot 1B](screenshots/Screenshot_1B.jpeg)
+- ![Screenshot 1A1](screenshots/Screenshot_1A1.jpeg)
+- ![Screenshot 1B1](screenshots/Screenshot_1B1.jpeg)
 
 - **Verification:**
 - Blob storage working correctly  
