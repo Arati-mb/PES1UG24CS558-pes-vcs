@@ -82,7 +82,8 @@ Functionality:
 - Stores author (Arati <PES1UG24CS558>)  
 - Updates HEAD reference
 -  ![Screenshot 4A](screenshots/Screenshot_4A.jpeg)
--   ![Screenshot 4B](screenshots/Screenshot_4B.jpeg)
+- ![Screenshot 4B](screenshots/Screenshot_4B.jpeg)
+- ![Screenshot 4C4](screenshots/Screenshot_4C4.jpeg)
 ---
 ## 🔹 Final Integration Test
 
